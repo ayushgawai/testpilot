@@ -86,11 +86,13 @@ python -m pytest -q
 
 ```
 ...............                                                          [100%]
-15 passed
+15 passed in 0.17s
 ```
 
-(Count line abbreviated; 15 tests covering triage output schema, guardrails,
-determinism of the mock provider, and data-setup reproducibility.)
+(15 tests covering triage output schema, guardrails, determinism of the
+mock provider, and data-setup reproducibility. Note: `pytest` works from a
+fresh clone without installing first — `pyproject.toml` sets
+`pythonpath = ["."]`; `pip install -e ".[dev]"` is still the recommended setup.)
 
 ## Bench
 
@@ -104,9 +106,9 @@ Sanity run actually executed for this README — **scaled down honestly to
 50 runs** (`python -m testpilot.bench --runs 50`):
 
 ```
-testpilot bench - provider=mock runs=50 seed=42
+testpilot bench — provider=mock runs=50 seed=42
   root-cause top-1 rate : 100.0%  (50/50)
-  median time-to-first-hypothesis: 0.039 ms
+  median time-to-first-hypothesis: 0.038 ms
   per-category top-1:
     assertion_mismatch     4/4  (100.0%)
     config_error           7/7  (100.0%)
@@ -119,7 +121,7 @@ testpilot bench - provider=mock runs=50 seed=42
 ```
 
 The 500-run bench was also run and likewise reports 100.0% (500/500),
-median 0.034 ms. **Read that number honestly:** the historical corpus is
+median 0.033 ms. **Read that number honestly:** the historical corpus is
 synthetic and generated from the same signal vocabulary the mock provider
 scores, so 100% top-1 is a pipeline sanity check, not evidence of real-world
 accuracy. On real failure logs the ranking is only as good as the provider
